@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace dotnetcore
 {
@@ -27,10 +28,41 @@ namespace dotnetcore
         // - Utilizar Classe Pessoa
         static void Main(string[] args)
         {
-            Console.WriteLine("Iniciando Programa");
+            var xNotasZuqui = new List<float>() { 7, 6, 5, 3 };
+            var xNotasBronza = new List<float>() { 8, 9, 10, 8 };            
 
-            var xNotasZuqui = new int[] { 7, 6, 5, 3 };
-            var xNotasBronza = new int[] { 8, 9, 10, 8 };
+            float xMediaZuqui = CalcularMedia(xNotasZuqui);
+            float xMediaBronza = CalcularMedia(xNotasBronza);
+
+            Console.WriteLine("Media do zuqui: " + xMediaZuqui);
+            if(xMediaZuqui >= 7)
+            {
+                Console.WriteLine("Zuqui passou de ano letivo");
+            }
+            else 
+            {
+                Console.WriteLine("Zuqui não passou do ano letivo");
+            }
+
+            Console.WriteLine("Media do Bronza: " + xMediaBronza);
+
+            if(xMediaBronza >= 7)
+            {
+                Console.WriteLine("Bronza passou de ano letivo");
+            }
+            else 
+            {
+                Console.WriteLine("Bronza não passou do ano letivo");
+            }
+        }
+        public static float CalcularMedia(List<float> xNotas) 
+        {
+            float xRetorno = 0;
+            foreach(var xNota in xNotas)
+            {
+                xRetorno += xNota;
+            }
+            return xRetorno/xNotas.Count;
         }
     }
 }
