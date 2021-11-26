@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace dotnetcore
 {
-    class Program
+    partial class Program
     {
         // Exercício 1:
         // - Fazer a média de notas dos dois alunos (Zuqui, Bronza) e imprimir no Console.WriteLine();
@@ -28,41 +29,24 @@ namespace dotnetcore
         // - Utilizar Classe Pessoa
         static void Main(string[] args)
         {
-            var xNotasZuqui = new List<float>() { 7, 6, 5, 3 };
-            var xNotasBronza = new List<float>() { 8, 9, 10, 8 };            
+            var xPessoas = new List<Pessoa>();
+            xPessoas.Add(new Pessoa{ Idade= 18, Nome = "Zuqui"});
+            xPessoas.Add(new Pessoa{ Idade= 27, Nome = "Bronza"});
+            xPessoas.Add(new Pessoa{ Idade= 15, Nome = "Tomita"});
+            xPessoas.Add(new Pessoa{ Idade= 35, Nome = "Joao"});
 
-            float xMediaZuqui = CalcularMedia(xNotasZuqui);
-            float xMediaBronza = CalcularMedia(xNotasBronza);
-
-            Console.WriteLine("Media do zuqui: " + xMediaZuqui);
-            if(xMediaZuqui >= 7)
-            {
-                Console.WriteLine("Zuqui passou de ano letivo");
-            }
-            else 
-            {
-                Console.WriteLine("Zuqui não passou do ano letivo");
-            }
-
-            Console.WriteLine("Media do Bronza: " + xMediaBronza);
-
-            if(xMediaBronza >= 7)
-            {
-                Console.WriteLine("Bronza passou de ano letivo");
-            }
-            else 
-            {
-                Console.WriteLine("Bronza não passou do ano letivo");
-            }
-        }
-        public static float CalcularMedia(List<float> xNotas) 
-        {
-            float xRetorno = 0;
-            foreach(var xNota in xNotas)
-            {
-                xRetorno += xNota;
-            }
-            return xRetorno/xNotas.Count;
+            var xMedia = xPessoas.Select(p => p.Idade).Average();
+            Console.WriteLine("Media das idades: " + xMedia);
+            var xMaisVelha = xPessoas.OrderByDescending(p => p.Idade).FirstOrDefault();
+            Console.WriteLine("idade da pessoa mais velha: " + xMaisVelha.Idade + " Nome: " + xMaisVelha.Nome);
+            var xMaisNova = xPessoas.OrderBy(p => p.Idade).FirstOrDefault();
+            Console.WriteLine("idade da pessoa mais nova: " + xMaisNova.Idade + " Nome: " + xMaisNova.Nome);
+            var xQuantidade = xPessoas.Where(p => p.Idade >= 18).Count();
+            Console.WriteLine("Quantidade de pessoas com maior idade: " + xQuantidade);
+            var xMenorIdade = xPessoas.Select(p => p.Idade).Min();
+            Console.WriteLine("Menor idade: " + xMenorIdade);
+            var xMaiorIdade = xPessoas.Select(p => p.Idade).Max();
+            Console.WriteLine("Maior idade: " + xMaiorIdade);
         }
     }
 }
